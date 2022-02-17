@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { Navigation } from './nav'
 import styles from '../styles/Home.module.css'
 
 export const getStaticProps = async () => {
@@ -17,9 +18,10 @@ export const getStaticProps = async () => {
 
 const Home: React.FC<any> = ({countries}) => {
   return (
-    countries.map((country) => {
-      return <p>{country.name.common}</p>
-    })
+    <>
+
+      <Navigation/>
+    </>
   )
   }
 export default Home
