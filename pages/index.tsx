@@ -3,24 +3,22 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Navigation } from './nav'
 import styles from '../styles/Home.module.css'
+import { AllCountries } from './all-countries'
 
-export const getStaticProps = async () => {
-  const res = await fetch("https://restcountries.com/v3.1/all")
+export async function getServerSideProps() {
+  const res = await fetch("https://restcountries.com/v2/all")
   const data = await res.json()
 
-  return {
-    props: {
-      countries: data,
-    }
-  }
-  
+  return { props: { data }}
 }
 
-const Home: React.FC<any> = ({countries}) => {
+const Home: React.FC<any> = ({data}) => {
   return (
     <>
 
       <Navigation/>
+      <AllCountries countries={data}/>
+
     </>
   )
   }
