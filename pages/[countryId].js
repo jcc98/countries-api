@@ -1,8 +1,20 @@
 export default function CountryInfo({countrySelected}) {
-    console.log(countrySelected[0].name.common)
+
+    const countryArray = countrySelected[0]
+    const nativeName = Object.keys(countryArray.name.nativeName)
+    let nativeNameEntries = []
+
+    for (let i = 0; i < nativeName.length; i++) {
+        nativeNameEntries.push(nativeName[i])
+    }
+
+
+    console.log(countryArray)
+    console.log(nativeNameEntries)
     return (
         <div>
-            {countrySelected[0].name.common}
+            <h2>{countryArray.name.common}</h2>
+            <p>Native Name: {nativeNameEntries.map((name) => <p>{name}</p>)}</p>
         </div>
     )
 }
