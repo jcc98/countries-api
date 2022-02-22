@@ -1,7 +1,38 @@
 import {useState} from "react"
 import styled from "styled-components"
 
+// interface CountriesProps {
+//     altSpellings: string[],
+//     area: number,
+//     borders: string[],
+//     capital: string[],
+//     capitalInfo: string[],
+//     car: 
+//     coatOfArms:
+//     continents:
+//     currencies:
+//     demonyms:
+//     fifa:
+//     flag:
+//     flags:
+//     idd:
+//     independent:
+//     landlocked:
+//     languages:
+//     latlng:
+//     maps:
+//     name:
+//     population:
+//     region:
+//     startOfWeek:
+//     status:
+//     subregion:
+//     timezones:
+//     tld:
+//     translations:
+//     unMember:
 
+// }
 
 export const AllCountries = ({countries}:{countries:any}) => {
     const [filteredCountry, setFilteredCountry] = useState("")

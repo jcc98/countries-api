@@ -2,19 +2,23 @@ export default function CountryInfo({countrySelected}) {
 
     const countryArray = countrySelected[0]
     const nativeName = Object.keys(countryArray.name.nativeName)
-    let nativeNameEntries = []
+    const languagesArray = Object.values(countryArray.languages)
 
-    for (let i = 0; i < nativeName.length; i++) {
-        nativeNameEntries.push(nativeName[i])
-    }
+    const test = Object.values(Object.values(countryArray.name.nativeName))
+    console.log(test)
 
-
-    console.log(countryArray)
-    console.log(nativeNameEntries)
     return (
         <div>
+            <p>{test.map((tests) => <p>test</p>)}</p>
             <h2>{countryArray.name.common}</h2>
-            <p>Native Name: {nativeNameEntries.map((name) => <p>{name}</p>)}</p>
+            <p>Native Name: {nativeName.map((name) => <p>{name}</p>)}</p>
+            <p>Top Level Domain: {countryArray.tld}</p>
+            <p>Population: {countryArray.population}</p>
+            <p>Currencies: {Object.values(countryArray.currencies)[0].name}</p>
+            <p>Region: {countryArray.region}</p>
+            <p>Languages: {languagesArray.map((language) => <p>{language}</p>)}</p>
+            <p>Sub Region:</p>
+            <p>Capital:</p>
         </div>
     )
 }
