@@ -44,15 +44,15 @@ export const AllCountries = ({countries}:{countries:any}) => {
             {countries.filter((word) => {
                 if (filteredCountry === "") {
                     return word
-                } else if (word.name.toLowerCase().includes(filteredCountry)) {
+                } else if (word.name.common.toLowerCase().includes(filteredCountry)) {
                     return word
                 }
             }).map((country) => {
                 return (
-                <a href={country.name.toLowerCase()} className="country-card">
+                <a href={country.name.common.toUpperCase()} className="country-card">
                     <div className="card-img"><img src={country.flags.png}/></div>
                     <div className="card-data">
-                    <p>{country.name}</p>
+                    <p>{country.name.common}</p>
                     <p>Population: {country.population}</p>
                     <p>Region: {country.region}</p>
                     <p>Capital: {country.capital}</p>

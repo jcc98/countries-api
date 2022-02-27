@@ -5,11 +5,11 @@ export default function CountryInfo({countrySelected}) {
     const languagesArray = Object.values(countryArray.languages)
 
     const test = Object.values(Object.values(countryArray.name.nativeName))
-    console.log(test)
+    console.log(countryArray)
+
 
     return (
         <div>
-            <p>{test.map((tests) => <p>test</p>)}</p>
             <h2>{countryArray.name.common}</h2>
             <p>Native Name: {nativeName.map((name) => <p>{name}</p>)}</p>
             <p>Top Level Domain: {countryArray.tld}</p>
@@ -42,7 +42,7 @@ export async function getStaticPaths() {
         paths: countries.map(country => {
                 return {
                     params: {
-                        countryId:  country.name.common.toLowerCase()
+                        countryId:  country.name.common.toUpperCase()
                     }
                 }
             }),

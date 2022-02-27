@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css'
 import { AllCountries } from './all-countries'
 
 export async function getServerSideProps() {
-  const res = await fetch("https://restcountries.com/v2/all")
+  const res = await fetch("https://restcountries.com/v3.1/all")
   const data = await res.json()
 
   return { props: { data }}
