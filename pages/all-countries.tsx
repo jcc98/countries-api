@@ -1,46 +1,49 @@
 import {useState} from "react"
 import styled from "styled-components"
+import {AiOutlineSearch} from "react-icons/ai"
 
-// interface CountriesProps {
-//     altSpellings: string[],
-//     area: number,
-//     borders: string[],
-//     capital: string[],
-//     capitalInfo: string[],
-//     car: 
-//     coatOfArms:
-//     continents:
-//     currencies:
-//     demonyms:
-//     fifa:
-//     flag:
-//     flags:
-//     idd:
-//     independent:
-//     landlocked:
-//     languages:
-//     latlng:
-//     maps:
-//     name:
-//     population:
-//     region:
-//     startOfWeek:
-//     status:
-//     subregion:
-//     timezones:
-//     tld:
-//     translations:
-//     unMember:
 
-// }
+const SearchFilterContainer = styled.div`
+    margin: 8rem 3rem;
+    display: flex;
+    justify-content: space-between;
+`
+
+const FilterContainer = styled.div`
+    padding: 1rem 4rem;`
+
+
+const Flex = styled.div`
+    display: flex;
+    box-shadow: 5px 5px 14px 1px rgba(160,160,160,0.34);
+    align-self: center;    
+    `
+const SearchInput = styled.input`
+    padding: 1rem 6rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 0px;
+    &:focus {
+        outline: none;
+    }
+    &::placeholder {
+        color: #cecece;
+    }
+`
 
 export const AllCountries = ({countries}:{countries:any}) => {
     const [filteredCountry, setFilteredCountry] = useState("")
 
     return(
         <>
-                <input type="text" placeholder="Search for a country..." onChange={(e) => setFilteredCountry(e.target.value)} />
-                <p>Filter by region</p>
+            <SearchFilterContainer>
+                <Flex>
+                    
+                    <Flex><AiOutlineSearch size={20}/></Flex>
+                    <SearchInput onChange={(e) => setFilteredCountry(e.target.value)} placeholder="Search for a country..."/>
+                </Flex>    
+                <Flex><FilterContainer>Filter by region</FilterContainer></Flex>
+            </SearchFilterContainer>
             {countries.filter((word) => {
                 if (filteredCountry === "") {
                     return word
@@ -52,10 +55,10 @@ export const AllCountries = ({countries}:{countries:any}) => {
                 <a href={country.name.common.toUpperCase()} className="country-card">
                     <div className="card-img"><img src={country.flags.png}/></div>
                     <div className="card-data">
-                    <p>{country.name.common}</p>
-                    <p>Population: {country.population}</p>
-                    <p>Region: {country.region}</p>
-                    <p>Capital: {country.capital}</p>
+                    <h3>{country.name.common}</h3>
+                    <p><strong>Population:</strong> {new Intl.NumberFormat().format(country.population)}</p>
+                    <p><strong>Region:</strong> {country.region}</p>
+                    <p><strong>Capital:</strong> {country.capital}</p>
                     </div>
                 </a>
                 )

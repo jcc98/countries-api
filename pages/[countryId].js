@@ -1,24 +1,38 @@
 export default function CountryInfo({countrySelected}) {
 
     const countryArray = countrySelected[0]
-    const nativeName = Object.keys(countryArray.name.nativeName)
+    const nativeName = Object.values(countryArray.name.nativeName)
     const languagesArray = Object.values(countryArray.languages)
-
-    const test = Object.values(Object.values(countryArray.name.nativeName))
     console.log(countryArray)
 
 
     return (
         <div>
+            <a href="/">Back</a>
+            <img src={countryArray.flags.png}/>
             <h2>{countryArray.name.common}</h2>
-            <p>Native Name: {nativeName.map((name) => <p>{name}</p>)}</p>
+            <p>Native Name: {nativeName.map((name, i, arr) => {
+                if (arr.length -1 === i) {
+                    return <span>{name.common}</span>
+                } else {
+                    return <span>{name.common}, </span>
+                }
+            })}</p>
             <p>Top Level Domain: {countryArray.tld}</p>
-            <p>Population: {countryArray.population}</p>
+            <p>Population: {new Intl.NumberFormat().format(countryArray.population)}</p>
             <p>Currencies: {Object.values(countryArray.currencies)[0].name}</p>
             <p>Region: {countryArray.region}</p>
-            <p>Languages: {languagesArray.map((language) => <p>{language}</p>)}</p>
-            <p>Sub Region:</p>
-            <p>Capital:</p>
+            <p>Languages: {languagesArray.map((language, i, arr) => { 
+                if (arr.length - 1 === i) {
+                    return <span>{language}</span>
+                } else {
+                    return <span>{language}, </span>
+                }
+             })}</p>
+            <p>Sub Region: {countryArray.subregion}</p>
+            <p>Capital: {countryArray.capital}</p>
+            Border countries: {countryArray.borders && countryArray.borders.map((country) => country)}
+                              {!countryArray.borders && "None"}
         </div>
     )
 }
