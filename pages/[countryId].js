@@ -1,3 +1,4 @@
+import {Navigation} from "./nav"
 export default function CountryInfo({countrySelected}) {
 
     const countryArray = countrySelected[0]
@@ -8,6 +9,7 @@ export default function CountryInfo({countrySelected}) {
 
     return (
         <div>
+            <Navigation/>
             <a href="/">Back</a>
             <img src={countryArray.flags.png}/>
             <h2>{countryArray.name.common}</h2>
