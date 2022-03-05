@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Navigation } from "./nav";
 import styled from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -6,7 +7,30 @@ export default function CountryInfo({ countrySelected }) {
   const countryArray = countrySelected[0];
   const nativeName = Object.values(countryArray.name.nativeName);
   const languagesArray = Object.values(countryArray.languages);
-  console.log(countryArray);
+  const borderCountriesAbbrev = countryArray.borders;
+  const promises = [];
+
+  const [borderCountriesName, setBorderCountriesName] = useState([]);
+
+  useEffect(() => {
+    for (let i = 0; i < borderCountriesAbbrev?.length; i++) {
+      promises.push(
+        fetch(
+          `https://restcountries.com/v3.1/alpha/${borderCountriesAbbrev[i]}`
+        )
+      );
+    }
+    Promise.all(promises).then((res) =>
+      Promise.all(res.map((r) => r.json())).then((results) =>
+        results.forEach((result) =>
+          setBorderCountriesName((prevArray) => [
+            ...prevArray,
+            result[0].name.common,
+          ])
+        )
+      )
+    );
+  }, []);
 
   const Flex = styled.div`
     display: flex;
@@ -21,6 +45,19 @@ export default function CountryInfo({ countrySelected }) {
     transition: 0.4s all;
     font-size: 0.75rem;
 
+    &:hover {
+      cursor: pointer;
+      background-color: #ddd;
+    }
+  `;
+
+  const BorderCountriesContainer = styled.a`
+    background-color: #fff;
+    padding: 0.5rem 0.9rem;
+    box-shadow: 0px 0px 10px 3px rgba(165, 165, 165, 0.17);
+    font-size: 0.9rem;
+    color: #111517;
+    margin: 1rem 0.7rem;
     &:hover {
       cursor: pointer;
       background-color: #ddd;
@@ -100,7 +137,11 @@ export default function CountryInfo({ countrySelected }) {
           </p>
           <strong>Border countries:</strong>{" "}
           {countryArray.borders &&
-            countryArray.borders.map((country) => country)}
+            borderCountriesName.map((country) => (
+              <BorderCountriesContainer href={country.toUpperCase()}>
+                {country}
+              </BorderCountriesContainer>
+            ))}
           {!countryArray.borders && "None"}
         </CountryInfoContainer>
       </Flex>

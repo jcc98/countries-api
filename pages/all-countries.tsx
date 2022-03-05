@@ -32,6 +32,7 @@ const FilterContainer = styled.div`
 const CardsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const Flex = styled.div`
