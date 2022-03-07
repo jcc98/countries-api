@@ -37,9 +37,15 @@ export default function CountryInfo({ countrySelected }) {
     justify-content: flex-start;
   `;
 
+  const FlexWrap = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+  `;
+
   const BackButton = styled.a`
     box-shadow: 1px 1px 15px -1px rgba(104, 104, 104, 0.49);
-    margin: 7rem 0 0rem 3rem;
+
+    margin: 7rem 0rem 1.3rem 3rem;
     display: inline-block;
     padding: 0.8rem 2.2rem;
     transition: 0.4s all;
@@ -57,7 +63,7 @@ export default function CountryInfo({ countrySelected }) {
     box-shadow: 0px 0px 10px 3px rgba(165, 165, 165, 0.17);
     font-size: 0.9rem;
     color: #111517;
-    margin: 1rem 0.7rem;
+    margin: 0.35rem 0.7rem;
     &:hover {
       cursor: pointer;
       background-color: #ddd;
@@ -113,7 +119,8 @@ export default function CountryInfo({ countrySelected }) {
           </p>
           <p>
             <strong>Currencies:</strong>{" "}
-            {Object.values(countryArray.currencies)[0].name}
+            {countryArray.currencies &&
+              Object.values(countryArray.currencies)[0].name}
           </p>
           <p>
             <strong>Region:</strong> {countryArray.region}
@@ -135,13 +142,15 @@ export default function CountryInfo({ countrySelected }) {
           <p>
             <strong>Capital:</strong> {countryArray.capital}
           </p>
-          <strong>Border countries:</strong>{" "}
-          {countryArray.borders &&
-            borderCountriesName.map((country) => (
-              <BorderCountriesContainer href={country.toUpperCase()}>
-                {country}
-              </BorderCountriesContainer>
-            ))}
+          <strong>Border countries:</strong>
+          <FlexWrap>
+            {countryArray.borders &&
+              borderCountriesName.map((country) => (
+                <BorderCountriesContainer href={country.toUpperCase()}>
+                  {country}
+                </BorderCountriesContainer>
+              ))}
+          </FlexWrap>
           {!countryArray.borders && "None"}
         </CountryInfoContainer>
       </Flex>

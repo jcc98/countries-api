@@ -15,6 +15,9 @@ const CardTextContainer = styled.div`
 
   & h3 {
     margin-bottom: 2rem;
+    font-size: 1rem;
+    width: 218px;
+    line-height: 1rem;
   }
 `;
 
@@ -33,6 +36,11 @@ const CardsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 0 4.5rem;
+  & p {
+    width: 218px;
+    line-height: 1rem;
+  }
 `;
 
 const Flex = styled.div`
@@ -72,6 +80,7 @@ export const AllCountries = ({ countries }: { countries: any }) => {
           <FilterContainer>Filter by region</FilterContainer>
         </Flex>
       </SearchFilterContainer>
+
       <CardsContainer>
         {countries
           .filter((word) => {
@@ -103,6 +112,7 @@ export const AllCountries = ({ countries }: { countries: any }) => {
                       </p>
                       <p>
                         <strong>Capital:</strong> {country.capital}
+                        {!country.capital && "None"}
                       </p>
                     </CardTextContainer>
                   </a>
