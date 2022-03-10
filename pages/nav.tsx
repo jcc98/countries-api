@@ -3,7 +3,7 @@ import { BsMoon, BsSun } from "react-icons/bs";
 
 export const Navigation = () => {
   const NavContainer = styled.div`
-    background-color: #fff;
+    background-color: ${(props) => props.theme.backgroundSecond}
     display: flex;
     justify-content: space-between;
     padding: 0.2rem 2rem;

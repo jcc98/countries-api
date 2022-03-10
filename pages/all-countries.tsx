@@ -83,7 +83,8 @@ const SearchInput = styled.input`
 export const AllCountries = ({ countries }: { countries: any }) => {
   const [filteredCountry, setFilteredCountry] = useState("");
   const [filterRegionState, setFilterRegionState] = useState(false);
-  const [filterRegionValue, setFilterRegionValue] = useState("");
+  const [filterRegionValue, setFilterRegionValue] =
+    useState("Remove Selection");
   console.log(filterRegionValue);
   console.log(countries);
   const SetFilterRegion = (value) => {
@@ -115,62 +116,103 @@ export const AllCountries = ({ countries }: { countries: any }) => {
       </SearchFilterContainer>
 
       <CardsContainer>
-        {countries
-          .filter((word) => {
-            if (word.region === filterRegionValue) {
-              return word;
-            }
-          })
-          .map((a) => a.name.common)}
-        {countries
-          .filter((word) => {
-            if (filteredCountry === "") {
-              return word;
-            } else if (
-              word.name.common.toLowerCase().includes(filteredCountry)
-            ) {
-              return word;
-            }
-          })
-          .sort((a, b) => {
-            let fa = a.name.common.toLowerCase();
-            let fb = b.name.common.toLowerCase();
-            if (fa < fb) {
-              return -1;
-            }
-            if (fa > fb) {
-              return 1;
-            }
-            return 0;
-          })
-          .map((country) => {
-            return (
-              <motion.div whileHover={{ scale: 1.1 }}>
-                <SingleCardContainer>
-                  <a
-                    href={country.name.common.toUpperCase()}
-                    className="country-card"
-                  >
-                    <img src={country.flags.png} width={"250"} />
-                    <CardTextContainer>
-                      <h3>{country.name.common}</h3>
-                      <p>
-                        <strong>Population:</strong>{" "}
-                        {new Intl.NumberFormat().format(country.population)}
-                      </p>
-                      <p>
-                        <strong>Region:</strong> {country.region}
-                      </p>
-                      <p>
-                        <strong>Capital:</strong> {country.capital}
-                        {!country.capital && "None"}
-                      </p>
-                    </CardTextContainer>
-                  </a>
-                </SingleCardContainer>
-              </motion.div>
-            );
-          })}
+        {filterRegionValue === "Remove Selection" &&
+          countries
+            .filter((word) => {
+              if (filteredCountry === "") {
+                return word;
+              } else if (
+                word.name.common.toLowerCase().includes(filteredCountry)
+              ) {
+                return word;
+              }
+            })
+            .sort((a, b) => {
+              let fa = a.name.common.toLowerCase();
+              let fb = b.name.common.toLowerCase();
+              if (fa < fb) {
+                return -1;
+              }
+              if (fa > fb) {
+                return 1;
+              }
+              return 0;
+            })
+            .map((country) => {
+              return (
+                <motion.div whileHover={{ scale: 1.1 }}>
+                  <SingleCardContainer>
+                    <a
+                      href={country.name.common.toUpperCase()}
+                      className="country-card"
+                    >
+                      <img src={country.flags.png} width={"250"} />
+                      <CardTextContainer>
+                        <h3>{country.name.common}</h3>
+                        <p>
+                          <strong>Population:</strong>{" "}
+                          {new Intl.NumberFormat().format(country.population)}
+                        </p>
+                        <p>
+                          <strong>Region:</strong> {country.region}
+                        </p>
+                        <p>
+                          <strong>Capital:</strong> {country.capital}
+                          {!country.capital && "None"}
+                        </p>
+                      </CardTextContainer>
+                    </a>
+                  </SingleCardContainer>
+                </motion.div>
+              );
+            })}
+        {filterRegionValue !== "Remove Selection" &&
+          countries
+            .filter((word) => {
+              if (word.region === filterRegionValue) {
+                return word;
+              }
+            })
+
+            .sort((a, b) => {
+              let fa = a.name.common.toLowerCase();
+              let fb = b.name.common.toLowerCase();
+              if (fa < fb) {
+                return -1;
+              }
+              if (fa > fb) {
+                return 1;
+              }
+              return 0;
+            })
+            .map((country) => {
+              return (
+                <motion.div whileHover={{ scale: 1.1 }}>
+                  <SingleCardContainer>
+                    <a
+                      href={country.name.common.toUpperCase()}
+                      className="country-card"
+                    >
+                      <img src={country.flags.png} width={"250"} />
+                      <CardTextContainer>
+                        <h3>{country.name.common}</h3>
+                        <p>
+                          <strong>Population:</strong>{" "}
+                          {new Intl.NumberFormat().format(country.population)}
+                        </p>
+                        <p>
+                          <strong>Region:</strong> {country.region}
+                        </p>
+                        <p>
+                          <strong>Capital:</strong> {country.capital}
+                          {!country.capital && "None"}
+                        </p>
+                      </CardTextContainer>
+                    </a>
+                  </SingleCardContainer>
+                </motion.div>
+              );
+            })}
       </CardsContainer>
     </>
   );
