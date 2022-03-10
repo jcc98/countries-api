@@ -1,7 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { AiOutlineSearch } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiOutlineArrowDown,
+  AiOutlineClose,
+} from "react-icons/ai";
 import { motion } from "framer-motion";
+import FilterRegion from "./filter-region";
 
 const SearchFilterContainer = styled.div`
   margin: 7rem 3rem;
@@ -29,7 +34,16 @@ const SingleCardContainer = styled.div`
 `;
 
 const FilterContainer = styled.div`
-  padding: 1rem 4rem;
+  padding: 0rem 3rem;
+  display: flex;
+  position: relative;
+  transition: all 0.3s;
+  box-shadow: 0px 0px 11px 0px rgba(109, 109, 109, 0.31);
+  align-self: center;
+  :hover {
+    cursor: pointer;
+    background-color: #f8f8f8;
+  }
 `;
 
 const CardsContainer = styled.div`
@@ -41,6 +55,11 @@ const CardsContainer = styled.div`
     width: 218px;
     line-height: 1rem;
   }
+`;
+
+const Arrow = styled.div`
+  align-self: center;
+  text-align: center;
 `;
 
 const Flex = styled.div`
@@ -63,6 +82,13 @@ const SearchInput = styled.input`
 
 export const AllCountries = ({ countries }: { countries: any }) => {
   const [filteredCountry, setFilteredCountry] = useState("");
+  const [filterRegionState, setFilterRegionState] = useState(false);
+  const [filterRegionValue, setFilterRegionValue] = useState("");
+  console.log(filterRegionValue);
+  console.log(countries);
+  const SetFilterRegion = (value) => {
+    setFilterRegionValue(value.target.innerHTML);
+  };
 
   return (
     <>
@@ -76,12 +102,26 @@ export const AllCountries = ({ countries }: { countries: any }) => {
             placeholder="Search for a country..."
           />
         </Flex>
-        <Flex>
-          <FilterContainer>Filter by region</FilterContainer>
-        </Flex>
+        <FilterContainer>
+          <div onClick={() => setFilterRegionState(!filterRegionState)}>
+            <p>Filter by region</p>
+            <Arrow>
+              {!filterRegionState && <AiOutlineArrowDown size={12} />}
+              {filterRegionState && <AiOutlineClose size={12} />}
+            </Arrow>
+          </div>
+          {filterRegionState && <FilterRegion RegionValue={SetFilterRegion} />}
+        </FilterContainer>
       </SearchFilterContainer>
 
       <CardsContainer>
+        {countries
+          .filter((word) => {
+            if (word.region === filterRegionValue) {
+              return word;
+            }
+          })
+          .map((a) => a.name.common)}
         {countries
           .filter((word) => {
             if (filteredCountry === "") {
@@ -91,6 +131,17 @@ export const AllCountries = ({ countries }: { countries: any }) => {
             ) {
               return word;
             }
+          })
+          .sort((a, b) => {
+            let fa = a.name.common.toLowerCase();
+            let fb = b.name.common.toLowerCase();
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
           })
           .map((country) => {
             return (
