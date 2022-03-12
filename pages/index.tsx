@@ -18,6 +18,10 @@ export async function getServerSideProps() {
 const Home: React.FC<any> = ({ data }) => {
   const [theme, setTheme] = useState("dark");
 
+  const themeToggler = (): any => {
+    return "nigger";
+  };
+
   return (
     <>
       <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
